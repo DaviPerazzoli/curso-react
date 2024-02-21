@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+import React from 'react';
+import Header from './componenetes/Header'
+import Corpo from './componenetes/Corpo'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edite <code>src/App.js</code> e salve para recarregar.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Aprender React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default function App(){
+  const textoDestaque={
+    color: '#00f',
+    fontSize:'3em'
+  }
 
-export default App;
+  return(
+    <>
+      <section className='caixa'>
+        <Header style={{width: 300+'px',backgroundColor: '#ff0'}}/>
+        <h2 style={textoDestaque}>Texto destacado</h2>
+        <Corpo/>
+      </section>
+    </>
+  )
+}
