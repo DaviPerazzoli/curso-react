@@ -1,6 +1,7 @@
 import React from 'react';
-import Header from './componenetes/Header'
-import Corpo from './componenetes/Corpo'
+import Header from './componenetes/Header';
+import Corpo from './componenetes/Corpo';
+import Relogio from './componenetes/Relogio';
 import './App.css';
 
 export default function App(){
@@ -12,6 +13,7 @@ export default function App(){
   return(
     <>
       <section className='caixa'>
+        <Relogio/>
         <Header style={{width: 300+'px',backgroundColor: '#ff0'}}/>
         <h2 style={textoDestaque}>Texto destacado</h2>
         <Corpo/>
