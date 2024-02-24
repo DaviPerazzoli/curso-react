@@ -34,6 +34,18 @@ export default class Carro extends React.Component{
         )
     }
 
+    componentDidMount(){
+        console.log('O carro foi criado');
+    }
+
+    componentDidUpdate(){
+        console.log('O carro foi atualizado');
+    }
+
+    componentWillUnmount(){
+        console.log('O carro foi retirado');
+    }
+
     render(){
         return(
             <div>
@@ -43,6 +55,7 @@ export default class Carro extends React.Component{
                 <p>Velocidade atual: {this.state.velAtual}</p>
                 <button onClick={this.toggleLigadoBinded}>{this.state.ligado?'Desligar':'Ligar'}</button>
                 <button onClick={()=>this.acelerar()}>acelerar</button>
+                
             </div>
         );
     }
