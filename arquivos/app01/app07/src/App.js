@@ -1,28 +1,18 @@
 import './App.css';
 import React,{useState} from 'react';
-import TabelaCarros from './componentes/TabelaCarros';
-
-const carros=[
-  {categoria: 'Esporte',preco:'110000',modelo:'Golf GTI'},
-  {categoria: 'Esporte',preco:'110000',modelo:'Camaro'},
-  {categoria: 'SUV',preco:'85000',modelo:'HRV'},
-  {categoria: 'SUV',preco:'83000',modelo:'T-Cross'},
-  {categoria: 'Utilitário',preco:'125000',modelo:'Hilux'},
-  {categoria: 'Utilitário',preco:'90000',modelo:'Ranger'}
-]
+import FormularioIMC from './componentes/FormularioIMC';
+import TabelaIMC from './componentes/TabelaIMC';
 
 export default function App() {
-  const [categoria,setCategoria]=useState('');
-
-  const handleInputCategoria=(cat)=>{
-    setCategoria(cat);
-  }
+  const [peso,setPeso] = useState(10);
+  const [altura,setAltura]=useState(1);
+  const [IMC,setIMC]=useState(0);
 
   return(
     <>
-    <label>Digite uma categoria: </label><br/>
-      <input type="text" value={categoria} onChange={(e)=>handleInputCategoria(e.target.value)}/>
-      <TabelaCarros categoria={categoria} carros={carros}/>
+      <FormularioIMC peso={peso} setPeso={setPeso} altura={altura} setAltura={setAltura} setIMC={setIMC}/>
+      <p className='resultado'>Resultado: {IMC.toFixed(2)}</p>
+      <TabelaIMC/>
     </>
   )
 }
