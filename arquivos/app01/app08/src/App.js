@@ -11,6 +11,10 @@ function App() {
   const [operado, setOperado]=useState(false);
 
   const addDigitoTela=(digito)=>{
+    if((digito=='+' || digito=='-' || digito=='*' || digito=='/') && (valorTela[valorTela.length-1]=='+' || valorTela[valorTela.length-1]=='-' || valorTela[valorTela.length-1]=='*' || valorTela[valorTela.length-1]=='/')){
+      return;
+    }
+    
     if((digito=='+' || digito=='-' || digito=='*' || digito=='/') && operado){
       console.log(valorTela[valorTela.length-1]);
       if(valorTela[valorTela.length-1]=='+' || valorTela[valorTela.length-1]=='-' || valorTela[valorTela.length-1]=='*' || valorTela[valorTela.length-1]=='/'){
@@ -33,7 +37,6 @@ function App() {
       const valorDigitadoTela=valorTela+digito;
       setValorTela(valorDigitadoTela);
     }
-
   }
 
   const limparMemoria=()=>{
