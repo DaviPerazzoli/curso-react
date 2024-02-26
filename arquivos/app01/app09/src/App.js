@@ -12,9 +12,10 @@ export default function App(){
   ];
 
   const [jogo,setJogo] = useState(jogoInicial);
-  const [simboloAtual,setSimboloAtual] = useState('O');
+  const [simboloAtual,setSimboloAtual] = useState('X');
   const [jogando,setJogando] = useState(true);
   const [placar,setPlacar] = useState({x:0,o:0});
+  const [velha,setVelha] = useState(false);
 
   const mudarSimbolo = (simboloAtual)=>{
     if(simboloAtual=='X'){
@@ -26,9 +27,9 @@ export default function App(){
 
   const verificarJogando=()=>{
     if(jogando){
-      return <Tabuleiro setPlacar={setPlacar} placar={placar} jogando={jogando} setJogando={setJogando} simboloAtual={simboloAtual} mudarSimbolo={mudarSimbolo} jogo={jogo} setJogo={setJogo}/>
+      return <Tabuleiro setVelha={setVelha} setPlacar={setPlacar} placar={placar} jogando={jogando} setJogando={setJogando} simboloAtual={simboloAtual} mudarSimbolo={mudarSimbolo} jogo={jogo} setJogo={setJogo}/>
     }else{
-      return <TelaGanhador simboloAtual={simboloAtual} setJogando={setJogando} mudarSimbolo={mudarSimbolo} setJogo={setJogo} jogoInicial={jogoInicial}/>
+      return <TelaGanhador velha={velha} setVelha={setVelha} simboloAtual={simboloAtual} setJogando={setJogando} mudarSimbolo={mudarSimbolo} setJogo={setJogo} jogoInicial={jogoInicial}/>
     }
   }
 

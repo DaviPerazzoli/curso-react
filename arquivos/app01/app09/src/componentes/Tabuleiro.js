@@ -3,6 +3,8 @@ import Casa from "./Casa";
 
 export default function Tabuleiro(props){
 
+    const [jogadas,setJogadas]=useState(1);
+
     const linhaPreenchida=(simbolo)=>{
         let preenchida=false;
         for(let l=0;l<3;l++){
@@ -47,9 +49,15 @@ export default function Tabuleiro(props){
 
     const ganhou=(simboloAtual)=>{
         if(colunaPreenchida(simboloAtual) || linhaPreenchida(simboloAtual) || diagonalPreenchida(simboloAtual)){
-            props.setJogando(false);
             atualizarPlacarGanhador(simboloAtual);
             return true;  
+        }
+    }
+
+    const verificarVelha=(nJogadas)=>{
+        if(nJogadas == 9){
+            props.setJogando(false);
+            props.setVelha(true);
         }
     }
 
@@ -61,14 +69,21 @@ export default function Tabuleiro(props){
         const posicaoReal=posicao.split(' ');
 
         let copiaJogo=props.jogo
+
+        if(copiaJogo[posicaoReal[0]][posicaoReal[1]] == 'X' || copiaJogo[posicaoReal[0]][posicaoReal[1]] == 'O'){
+            return;
+        }
+        
         copiaJogo[posicaoReal[0]][posicaoReal[1]] = simboloAtual;
         props.setJogo(copiaJogo);
+        setJogadas(jogadas+1);
 
         if(ganhou(props.simboloAtual)){
-            console.log(props.simboloAtual + ' ganhou');
+            props.setJogando(false);
         }else{
             props.mudarSimbolo(props.simboloAtual);
-        }
+            verificarVelha(jogadas);
+        }        
     }
 
     return(
