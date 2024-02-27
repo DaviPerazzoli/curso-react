@@ -1,12 +1,12 @@
 import React,{useContext} from "react";
-import { JogoDaVelhaContext } from "../App";
+import { JogoDaVelhaContext } from "../context/JogoDaVelhaContext";
 
 
-export default function TelaGanhador(props){
+export default function TelaGanhador(){
 
-    const {setJogo,simboloAtual,mudarSimbolo,setJogando,velha,setVelha} = useContext(JogoDaVelhaContext);
+    const {setJogo , simboloAtual , mudarSimbolo , setJogando , velha , setVelha} = useContext(JogoDaVelhaContext);
 
-    const handleJogarNovamente=()=>{
+    const handleJogarNovamente = ()=>{
         mudarSimbolo(simboloAtual);
         setJogo([
             ['','',''],
@@ -17,18 +17,18 @@ export default function TelaGanhador(props){
         setVelha(false);
     }
 
-    const verificarFinalJogo=()=>{
+    const verificarFinalJogo = ()=>{
         if(velha){
             return <p>Deu velha! Bem jogado, nenhum dos dois ganhou.</p>
         }else{
-            return <p>Parabéns {simboloAtual}, você ganhou! Mais sorte na próxima vez {simboloAtual=='X'?'O':'X'}...</p>
+            return <p>Parabéns {simboloAtual}, você ganhou! Mais sorte na próxima vez {simboloAtual === 'X'?'O':'X'}...</p>
         }
     }
 
     return(
         <main>
             {verificarFinalJogo()}
-            <button onClick={()=>handleJogarNovamente()}>Jogar Novamente</button>
+            <button onClick={() => handleJogarNovamente()}>Jogar Novamente</button>
         </main>
     )
 }
