@@ -1,18 +1,27 @@
-import React from "react";
+import React,{useContext} from "react";
+import { JogoDaVelhaContext } from "../App";
+
 
 export default function TelaGanhador(props){
+
+    const {setJogo,simboloAtual,mudarSimbolo,setJogando,velha,setVelha} = useContext(JogoDaVelhaContext);
+
     const handleJogarNovamente=()=>{
-        props.mudarSimbolo(props.simboloAtual);
-        props.setJogo(props.jogoInicial);
-        props.setJogando(true);
-        props.setVelha(false);
+        mudarSimbolo(simboloAtual);
+        setJogo([
+            ['','',''],
+            ['','',''],
+            ['','','']
+          ]);
+        setJogando(true);
+        setVelha(false);
     }
 
     const verificarFinalJogo=()=>{
-        if(props.velha){
+        if(velha){
             return <p>Deu velha! Bem jogado, nenhum dos dois ganhou.</p>
         }else{
-            return <p>Parabéns {props.simboloAtual}, você ganhou! Mais sorte na próxima vez {props.simboloAtual=='X'?'O':'X'}...</p>
+            return <p>Parabéns {simboloAtual}, você ganhou! Mais sorte na próxima vez {simboloAtual=='X'?'O':'X'}...</p>
         }
     }
 

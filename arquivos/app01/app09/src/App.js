@@ -1,10 +1,11 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Tabuleiro from './componentes/Tabuleiro';
 import TelaGanhador from './componentes/TelaGanhador';
 
+export const JogoDaVelhaContext = React.createContext();
 
-export default function App(){
+export const JogoDaVelhaProvider = ({children})=>{
   const jogoInicial=[
     ['','',''],
     ['','',''],
@@ -23,16 +24,26 @@ export default function App(){
     }else{
         setSimboloAtual('X');
     }
+  }
+  
+  return(
+    <JogoDaVelhaContext.Provider value={{jogo,setJogo,simboloAtual,mudarSimbolo,jogando,setJogando,placar,setPlacar,velha,setVelha}}>{children}</JogoDaVelhaContext.Provider>
+  )
 }
 
+export default function App(){
+  const {jogando} = useContext(JogoDaVelhaContext);
   const verificarJogando=()=>{
     if(jogando){
-      return <Tabuleiro setVelha={setVelha} setPlacar={setPlacar} placar={placar} jogando={jogando} setJogando={setJogando} simboloAtual={simboloAtual} mudarSimbolo={mudarSimbolo} jogo={jogo} setJogo={setJogo}/>
+      return(
+        <Tabuleiro/>
+      )
     }else{
-      return <TelaGanhador velha={velha} setVelha={setVelha} simboloAtual={simboloAtual} setJogando={setJogando} mudarSimbolo={mudarSimbolo} setJogo={setJogo} jogoInicial={jogoInicial}/>
+      return(
+        <TelaGanhador/>
+      )
     }
   }
-
   return (
     <>
       {verificarJogando()}
