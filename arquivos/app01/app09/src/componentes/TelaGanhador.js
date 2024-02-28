@@ -1,20 +1,21 @@
-import React,{useContext} from "react";
-import { JogoDaVelhaContext } from "../context/JogoDaVelhaContext";
-
+import React from "react";
+// import { JogoDaVelhaContext } from "../context/JogoDaVelhaContext";
+import { useSelector , useDispatch } from "react-redux";
+import { setJogo , mudarSimbolo , setJogando , setPlacar , setVelha } from "../redux/jogoDaVelha/slice";
 
 export default function TelaGanhador(){
-
-    const {setJogo , simboloAtual , mudarSimbolo , setJogando , velha , setVelha} = useContext(JogoDaVelhaContext);
+    const dispatch = useDispatch();
+    const { simboloAtual , velha } = useSelector(rootReducer => rootReducer.jogoDaVelhaReducer);
 
     const handleJogarNovamente = ()=>{
-        mudarSimbolo(simboloAtual);
-        setJogo([
+        dispatch(mudarSimbolo(simboloAtual));
+        dispatch(setJogo([
             ['','',''],
             ['','',''],
             ['','','']
-          ]);
-        setJogando(true);
-        setVelha(false);
+          ]));
+        dispatch(setJogando(true));
+        dispatch(setVelha(false));
     }
 
     const verificarFinalJogo = ()=>{

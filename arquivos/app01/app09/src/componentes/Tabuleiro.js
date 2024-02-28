@@ -1,12 +1,19 @@
-import React, { useState , useContext } from "react";
+import React, { useState } from "react";
 import Casa from "./Casa";
-import { JogoDaVelhaContext } from "../context/JogoDaVelhaContext";
+// import { JogoDaVelhaContext } from "../context/JogoDaVelhaContext";
+import { useSelector , useDispatch } from "react-redux";
+import { setJogo , mudarSimbolo , setJogando , setPlacar , setVelha } from "../redux/jogoDaVelha/slice";
+
 
 export default function Tabuleiro(){
 
+    const { placar , simboloAtual , jogando , jogo } = useSelector(rootReducer => rootReducer.jogoDaVelhaReducer);
+
+    const dispatch = useDispatch();
+
     const [jogadas , setJogadas]=useState(1);
 
-    const {jogo , setJogo , simboloAtual , mudarSimbolo , jogando , setJogando , placar , setPlacar , setVelha} = useContext(JogoDaVelhaContext);
+    // const {jogo , setJogo , simboloAtual , mudarSimbolo , jogando , setJogando , placar , setPlacar , setVelha} = useContext(JogoDaVelhaContext);
 
     const linhaPreenchida=(simbolo)=>{
         let preenchida=false;
@@ -40,27 +47,28 @@ export default function Tabuleiro(){
     }
 
     const atualizarPlacarGanhador = (simbolo)=>{
-        let copiaPlacar = placar;
+        
+        let copiaPlacar = {...placar};
         
         if(simbolo === 'X'){
             copiaPlacar.x = placar.x + 1;
         }else{
             copiaPlacar.o = placar.o + 1;
         }
-        setPlacar(copiaPlacar);
+        dispatch(setPlacar(copiaPlacar));
     }
 
     const ganhou = (simboloAtual)=>{
         if(colunaPreenchida(simboloAtual) || linhaPreenchida(simboloAtual) || diagonalPreenchida(simboloAtual)){
             atualizarPlacarGanhador(simboloAtual);
-            return true;  
+            return true;
         }
     }
 
     const verificarVelha=(nJogadas)=>{
         if(nJogadas === 9){
-            setJogando(false);
-            setVelha(true);
+            dispatch(setJogando(false));
+            dispatch(setVelha(true));
         }
     }
 
@@ -69,22 +77,23 @@ export default function Tabuleiro(){
             return;
         }
 
-        const posicaoReal=posicao.split(' ');
+        const posicaoReal = posicao.split(' ');
 
-        let copiaJogo = jogo
+        let copiaJogo = jogo.map(row => [...row]);
 
         if(copiaJogo[posicaoReal[0]][posicaoReal[1]] === 'X' || copiaJogo[posicaoReal[0]][posicaoReal[1]] === 'O'){
             return;
         }
         
         copiaJogo[posicaoReal[0]][posicaoReal[1]] = simboloAtual;
-        setJogo(copiaJogo);
+        dispatch(setJogo(copiaJogo));
+        console.log(jogo);
         setJogadas(jogadas => jogadas + 1);
 
         if(ganhou(simboloAtual)){
-            setJogando(false);
+            dispatch(setJogando(false));
         }else{
-            mudarSimbolo(simboloAtual);
+            dispatch(mudarSimbolo(simboloAtual));
             verificarVelha(jogadas);
         }        
     }
