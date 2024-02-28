@@ -8,7 +8,7 @@ import Cart from "../cart/index";
 import * as Styles from "./styles";
 
 // Actions
-import {loginUser , logoutUser} from '../../redux/user/actions';
+import { loginUser , logoutUser } from '../../redux/user/slice';
 
 function Header() {
   const [cartIsVisible, setCartIsVisible] = useState(false);
@@ -17,8 +17,6 @@ function Header() {
   const { productsTotalQuantity } = useSelector(rootReducer => rootReducer.cartReducer);
 
   const dispatch = useDispatch();
-
-  console.log(currentUser);
 
   const handleCartClick = () => {
     setCartIsVisible(true);
