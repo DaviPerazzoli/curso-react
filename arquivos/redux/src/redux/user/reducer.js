@@ -8,13 +8,13 @@ const userReducer = (state = initialState, action) => {
     switch (action.type){
         case userActionTypes.LOGIN:
             return { ...state, currentUser: action.payload };
-            break;
+
         case userActionTypes.LOGOUT:
-            return { ...state, currentUser: null };;
-            break;
+            return { ...state, currentUser: null };
+
         default:
             return state;
-            break;
+
     }
 }
 
