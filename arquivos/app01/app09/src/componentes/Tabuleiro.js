@@ -63,6 +63,7 @@ export default function Tabuleiro(){
             atualizarPlacarGanhador(simboloAtual);
             return true;
         }
+        return false;
     }
 
     const verificarVelha=(nJogadas)=>{
