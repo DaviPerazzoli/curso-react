@@ -1,9 +1,10 @@
 import React from "react";
+import Styles from "../styles/styles";
 
 export default function Btn(props){
     return(
-        <button className="btnCalculadora" onClick={()=>props.onClick()}>
+        <Styles.ButtonCalculadora onClick={()=>props.onClick()}>
             {props.label}
-        </button>
+        </Styles.ButtonCalculadora>
     )
 }
