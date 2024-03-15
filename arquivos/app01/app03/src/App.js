@@ -1,31 +1,50 @@
 import React,{useState} from 'react';
 import './App.css';
 
+const getUser = () => {
+  return Promise.resolve({ id: '1', name: 'Robin' });
+};
+
 export default function App() {
+  const [search, setSearch] = React.useState('');
+  const [user, setUser] = React.useState(null);
 
-  const [form,setForm]=useState({nome:'',curso:'',ano:''});
+  React.useEffect(() => {
+    const loadUser = async () => {
+      const user = await getUser();
+      setUser(user)
+    };
 
-  const handleFormChange=(evt)=>{
-    if(evt.target.getAttribute('name')=='f_nome'){
-      setForm({nome:evt.target.value,curso:form.curso,ano:form.ano});
-    }else if(evt.target.getAttribute('name')=='f_curso'){
-      setForm({nome:form.nome,curso:evt.target.value,ano:form.ano});
-    }else{
-      setForm({nome:form.nome,curso:form.curso,ano:evt.target.value});
-    }
+    loadUser();
+  }, []);
+
+  function handleChange(event) {
+    setSearch(event.target.value);
   }
 
   return (
-    <>
-      <label>Nome</label>
-      <input type='text' name='f_nome' value={form.nome} onChange={(evt)=>{handleFormChange(evt)}}/><br/>
-      <label>Curso</label>
-      <input type='text' name='f_curso' value={form.curso} onChange={(evt)=>{handleFormChange(evt)}}/><br/>
-      <label>Ano</label>
-      <input type='text' name='f_ano' value={form.ano} onChange={(evt)=>{handleFormChange(evt)}}/>
-      <p>Nome digitado:{form.nome}</p>
-      <p>Curso digitado:{form.curso}</p>
-      <p>Ano digitado:{form.ano}</p>
-    </>
+    <div>
+      {user ? <p>Signed in as {user.name}</p> : null}
+
+      <Search value={search} onChange={handleChange}>
+        Search:
+      </Search>
+
+      <p>Searches for {search ? search : '...'}</p>
+    </div>
+  );
+}
+
+function Search({ value, onChange, children }) {
+  return (
+    <div>
+      <label htmlFor="search">{children}</label>
+      <input
+        id="search"
+        type="text"
+        value={value}
+        onChange={onChange}
+      />
+    </div>
   );
 }
