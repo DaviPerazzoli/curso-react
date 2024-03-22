@@ -1,28 +1,61 @@
 import * as React from 'react';
-import { render , screen } from '@testing-library/react';
+import { fireEvent, render , screen, waitFor } from '@testing-library/react';
 import App from './App';
-import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
 
-test('renders App.js', () => {
-  render(<App />);
+describe('App', () => {
+  test('renders App.js', () => {
+    render(<App />);
+    
+    expect(screen.getByText('Search:')).toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
+    
+
+  });
   
-  expect(screen.getByText('Search:')).toBeInTheDocument();
-  expect(screen.getByRole('textbox')).toBeInTheDocument();
+  test('ponei is not in the document', () => {
+    render(<App />);
+    expect(screen.queryByText('ponei')).not.toBeInTheDocument()
   
-});
+  
+  })
+  
+  test('Robin is logged in', async () => {
+    render(<App />);
+  
+    expect(screen.queryByText(/Signed in as/)).toBeNull(); // Antes dos dados da API
+  
+    expect(await screen.findByText(/Signed/)).toBeInTheDocument(); // Quando os dados chegam
+  
+  })
+  
+  test('Renderiza e muda o componente', async () => {
+    render(<App />);
 
-test('ponei is not in the document', () => {
-  render(<App />);
-  expect(screen.queryByText('ponei')).not.toBeInTheDocument()
+    await screen.findByText(/Signed in as/);
 
+    expect(screen.queryByText(/JavaScript/)).toBeNull();
 
-})
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'JavaScript'}
+    });
 
-test('Robin is logged in', async () => {
-  render(<App />);
+    expect(screen.getByText(/JavaScript/)).toBeInTheDocument()
+  })
 
-  expect(screen.queryByText(/Signed in as/)).toBeNull(); // Antes dos dados da API
+  // test('Renderiza e muda o componente', () => {
+  //   render(<App />);
 
-  expect(await screen.findByText(/Signed/)).toBeInTheDocument(); // Quando os dados chegam
+  //   expect(screen.queryByText(/JavaScript/)).toBeNull();
 
+  //   fireEvent.change(screen.getByRole('textbox'), {
+  //     target: { value: 'JavaScript'}
+  //   });
+
+  //   waitFor(
+  //     () => expect(
+  //         screen.getByText('#')
+  //         ).toBeInTheDocument()
+  //   )
+    
+  // })
 })
