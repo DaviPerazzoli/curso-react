@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fireEvent, render , screen, waitFor } from '@testing-library/react';
-import App from './App';
+import userEvent from '@testing-library/user-event';
+import App, { Search } from './App';
 
 describe('App', () => {
   test('renders App.js', () => {
@@ -42,6 +43,20 @@ describe('App', () => {
     expect(screen.getByText(/JavaScript/)).toBeInTheDocument()
   })
 
+  test('Renderiza e o usuário escreve Javascript', async () => {
+    render(<App/>);
+
+    await screen.findByText(/Signed in as/);
+
+    expect(screen.queryByText(/Serches for JavaScript/)).toBeNull();
+
+    userEvent.type(screen.getByRole('textbox'), 'JavaScript');
+
+    expect(
+      screen.getByText(/Searches for JavaScript/)
+    ).toBeInTheDocument();
+  })
+
   // test('Renderiza e muda o componente', () => {
   //   render(<App />);
 
@@ -58,4 +73,20 @@ describe('App', () => {
   //   )
     
   // })
+})
+
+describe('Search', () => {
+  it('calls the onChange callback handler', () => {
+    const onChange = jest.fn();
+
+    render(
+      <Search value="" onChange={onChange}>
+        Search:
+      </Search>
+    );
+
+    userEvent.type(screen.getByRole('textbox'), 'JavaScript')
+
+    expect(onChange).toHaveBeenCalledTimes(10)
+  })
 })
