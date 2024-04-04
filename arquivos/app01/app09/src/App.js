@@ -10,7 +10,7 @@ export default function App(){
 
   const {jogando , simboloAtual, placar} = useSelector(rootReducer => rootReducer.jogoDaVelhaReducer);
 
-  
+  const dispatch = useDispatch();
   const atualizarPlacarGanhador = (simbolo)=>{
         
     let copiaPlacar = {...placar};
