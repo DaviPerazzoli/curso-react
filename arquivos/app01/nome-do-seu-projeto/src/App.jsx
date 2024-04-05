@@ -1,6 +1,6 @@
 import './App.css'
-import React, { useEffect, useState } from 'react';
-import NavBar from './components/NavBar';
+import  { useEffect, useState } from 'react';
+// import NavBar from './components/NavBar';
 import axios from 'axios';
 
 export default function App() {
@@ -29,6 +29,7 @@ export default function App() {
       }
 
       loadPost();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]
   );
   
