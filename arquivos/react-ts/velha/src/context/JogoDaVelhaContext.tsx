@@ -1,6 +1,6 @@
 import React , { createContext , useState} from "react";
 
-interface JogoDaVelhaContextProps {
+export interface JogoDaVelhaContextProps {
     jogo: string[][];
     setJogo: React.Dispatch<React.SetStateAction<string[][]>>;
     simboloAtual: 'X' | 'O';
@@ -13,7 +13,7 @@ interface JogoDaVelhaContextProps {
     setVelha: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const JogoDaVelhaContext = createContext<JogoDaVelhaContextProps>();
+export const JogoDaVelhaContext = createContext<JogoDaVelhaContextProps | null>(null);
 
 export const JogoDaVelhaProvider = ({children}: {children: React.ReactNode}) => {
     const jogoInicial: string[][] = [
