@@ -15,7 +15,7 @@ export interface JogoDaVelhaContextProps {
 
 export const JogoDaVelhaContext = createContext<JogoDaVelhaContextProps | null>(null);
 
-export const JogoDaVelhaProvider = ({children}: {children: React.ReactNode}) => {
+export const JogoDaVelhaProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     const jogoInicial: string[][] = [
         ['','',''],
         ['','',''],

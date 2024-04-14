@@ -1,8 +1,9 @@
 import {useState, useContext} from 'react';
 import { JogoDaVelhaContext , JogoDaVelhaContextProps } from '../context/JogoDaVelhaContext';
+import Casa from './Casa';
 
-type Simbolo = 'O' | 'X';
-export default function Tabuleiro(){
+export type Simbolo = 'O' | 'X';
+const Tabuleiro: React.FC = () => {
 
     const contexto = useContext(JogoDaVelhaContext);
 
@@ -124,3 +125,5 @@ export default function Tabuleiro(){
         </main>
     );
 }
+
+export default Tabuleiro;
